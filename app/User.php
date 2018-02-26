@@ -40,4 +40,19 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Order');
     }
+
+    public function isAdmin(){
+        if (count($this->roles()->where('name', 'admin')->get()) > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function isModerator()
+    {
+        if (count($this->roles()->where('name', 'moderator')->get()) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

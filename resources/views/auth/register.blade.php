@@ -7,8 +7,7 @@
             <div class="card card-default">
                 <div class="card-header">Register</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route(
+                <div class="card-body">                   
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -40,6 +39,18 @@
                             </div>
                         </div>
 
+                         <div class="form-group row">
+                            <label for="roles" class="col-md-4 col-form-label text-md-right">Select Role</label>
+
+                            <div class="col-md-6">
+                                <select multiple class="form-control" id="roles" name="roles_id[]">
+                                <option value="1">User</option>
+                                <option value="2">Moderator</option>                        
+                                <option value="3">Admin</option>                        
+                                </select>              
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
@@ -61,6 +72,9 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+
+                       
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
