@@ -41,18 +41,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Order');
     }
 
-    public function isAdmin(){
-        if (count($this->roles()->where('name', 'admin')->get()) > 0){
+    // $roleName is the string in ('admin' .. 'moderator')
+    public function checkRole($roleName){
+        if (count($this->roles()->where('name', $roleName)->get()) > 0){
             return true;
         }
         return false;
     }
 
-    public function isModerator()
-    {
-        if (count($this->roles()->where('name', 'moderator')->get()) > 0) {
-            return true;
-        }
-        return false;
-    }
 }

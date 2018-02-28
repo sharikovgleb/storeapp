@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
@@ -16,7 +15,7 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->isAdmin()) {
+        if (Auth::user() && Auth::user()->checkRole('admin')) {
             return $next($request);
         }
 

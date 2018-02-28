@@ -4,30 +4,34 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-3">
-                <h2>Categories</h2><a href="{{route('admin.category.create')}}" class="btn">Create new category</a>
+                <h2>Items @isset($category) in $category->title @endisset</h2><a href="{{route('admin.item.create')}}" class="btn">Create new item</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Id</th>
                         <th>Title</th>
-                        <th>Item count</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @forelse($categories as $category)
+                    @forelse($items as $item)
                         <tr>
-                            <th scope="row">{{$category->id}}</th>
-                            <td>{{$category->title}}</td>
-                            <td>{{count($category->items)}}</td>
+                            <th scope="row">{{$item->id}}</th>
+                            <td>{{$item->title}}</td>
+                            <td>{{$item->description}}</td>
+                            <td>{{$item->price}}</td>
+                            <td>{{$item->category->title}}</td>
                             <td>
 
 
-                                <form onsubmit="if(confirm('Delete?')){return true}else{return false}" action="{{route('admin.category.destroy', $category)}}" method="post">
+                                <form onsubmit="if(confirm('Delete?')){return true}else{return false}" action="{{route('admin.item.destroy', $item)}}" method="post">
                                     <input type="hidden" name="_method" value="DELETE">
                                     {{csrf_field()}}
-                                    <a  href="{{route('admin.category.edit', $category)}}"><i class="fa fa-edit"></i></a>
+                                    <a  href="{{route('admin.item.edit', $item)}}"><i class="fa fa-edit"></i></a>
                                     <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
                                 </form>
 

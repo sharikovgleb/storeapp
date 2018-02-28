@@ -11,8 +11,20 @@
 |
 */
 
+
+// Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as'=>'admin.', 'middleware' => ['auth', 'admin']], function(){
     Route::get('/', 'AdminController@index')->name('index');
+
+    Route::resources([
+        'category' => 'CategoryController',
+        'item' => 'ItemController'
+    ]);
+});
+
+// Moderator routes
+Route::group(['prefix' => 'moderator', 'namespace' => 'Admin', 'as'=>'admin.', 'middleware' => ['auth', 'moderator']], function(){
+
 });
 
 
