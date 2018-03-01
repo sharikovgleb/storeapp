@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return 'lel';
+        $items = Item::with('category')->get();
+        return view('admin.item.index', [
+            'items' => $items,
+        ]);
     }
 
     /**
@@ -25,7 +29,9 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.item.create', [
+         'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -36,7 +42,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Item::create($request->all());
+
+       return redirect()->route('admin.item.index');
     }
 
     /**
@@ -45,9 +53,13 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function showInCategory(Category $category)
     {
-        //
+        $items = Item::where('category_id', $category->id)->get();
+
+        return view('admin.item.index', [
+            'item' => $items,
+        ]);
     }
 
     /**
@@ -58,7 +70,10 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view('admin.item.edit', [
+            'categories' => Category::all(),
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -70,7 +85,9 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $item->update($request->all());
+
+        return redirect()->route('admin.item.index');
     }
 
     /**
@@ -81,6 +98,8 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return redirect()->route('admin.item.index');
     }
 }

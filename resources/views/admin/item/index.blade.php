@@ -18,28 +18,30 @@
                     </thead>
                     <tbody>
 
-                    @forelse($items as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{$item->title}}</td>
-                            <td>{{$item->description}}</td>
-                            <td>{{$item->price}}</td>
-                            <td>{{$item->category->title}}</td>
-                            <td>
+                   @isset($items)
+                   @forelse($items as $item)
+                       <tr>
+                           <th scope="row">{{$item->id}}</th>
+                           <td>{{$item->title}}</td>
+                           <td>{{$item->description}}</td>
+                           <td>{{$item->price}}</td>
+                           <td>{{$item->category->title or "null"}}</td>
+                           <td>
 
 
-                                <form onsubmit="if(confirm('Delete?')){return true}else{return false}" action="{{route('admin.item.destroy', $item)}}" method="post">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    {{csrf_field()}}
-                                    <a  href="{{route('admin.item.edit', $item)}}"><i class="fa fa-edit"></i></a>
-                                    <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
-                                </form>
+                               <form onsubmit="if(confirm('Delete?')){return true}else{return false}" action="{{route('admin.item.destroy', $item)}}" method="post">
+                                   <input type="hidden" name="_method" value="DELETE">
+                                   {{csrf_field()}}
+                                   <a  href="{{route('admin.item.edit', $item)}}"><i class="fa fa-edit"></i></a>
+                                   <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
+                               </form>
 
-                            </td>
-                        </tr>
-                    @empty
+                           </td>
+                       </tr>
+                   @empty
 
-                    @endforelse
+                   @endforelse
+                    @endisset
                     </tbody>
                 </table>
             </div>

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table = 'item';
+    protected $fillable = ['title', 'description', 'price', 'category_id'];
 
     public function category(){
-        return $this->hasOne('App\Category');
+        return $this->belongsTo('App\Category');
     }
 
     public function orders(){

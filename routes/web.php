@@ -13,28 +13,26 @@
 
 
 // Admin routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as'=>'admin.', 'middleware' => ['auth', 'admin']], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as'=>'admin.', 'middleware' => ['auth']], function(){
+
     Route::get('/', 'AdminController@index')->name('index');
 
-    Route::resources([
-        'category' => 'CategoryController',
-        'item' => 'ItemController'
-    ]);
+    Route::resource('category', 'CategoryController', ['middleware'=> ['admin'], 'except' => [
+        'show']]);
+
+    Route::resource('item', 'ItemController', ['middleware'=> ['moderator'], 'except' => [
+        'show'
+    ]]);
+
+    Route::resource('user', 'UserController', ['middleware'=> ['admin'], 'except' => [
+        'show', 'create', 'store'
+    ]]);
 });
 
-// Moderator routes
-Route::group(['prefix' => 'moderator', 'namespace' => 'Admin', 'as'=>'admin.', 'middleware' => ['auth', 'moderator']], function(){
-
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 
 

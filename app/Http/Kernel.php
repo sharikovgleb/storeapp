@@ -21,6 +21,10 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
 
     ];
+    protected $middlewarePriority = [
+        'admin' => \App\Http\Middleware\IsAdmin::class,
+        'moderator' => \App\Http\Middleware\IsModerator::class
+    ];
 
     /**
      * The application's route middleware groups.
