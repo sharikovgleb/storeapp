@@ -17,8 +17,8 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description');
-            $table->decimal('price', 5, 2);
-            $table->integer('category_id')->unsigned();
+            $table->decimal('price', 10, 5);
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

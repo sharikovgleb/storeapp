@@ -9,7 +9,7 @@
     <label for="category">Category</label>
 
     <select id="category"  class="form-control" name="category_id">
-        <option value="0">Без категории</option>
+        <option value="null">Без категории</option>
         @include('admin.partials.category_select',['categories' => $categories])
     </select>
 </div>

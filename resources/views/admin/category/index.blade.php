@@ -1,9 +1,9 @@
 @extends('layouts.app_admin')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-3">
+    <div class="container">
+
+
                 <h2>Categories</h2><a href="{{route('admin.category.create')}}" class="btn">Create new category</a>
                 <table class="table table-striped">
                     <thead>
@@ -39,6 +39,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = user::all();
+        $users = user::with('roles')->get();
         return view('admin.user.index', [
             'users' => $users,
         ]);
@@ -58,7 +59,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+
+        $user->is_active = 0;
+        $user->save();
 
         return redirect()->route('admin.user.index');
     }

@@ -1,10 +1,11 @@
 @extends('layouts.app_admin')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-3">
-                <h2>Items @isset($category) in $category->title @endisset</h2><a href="{{route('admin.item.create')}}" class="btn">Create new item</a>
+    <div class="container">
+
+
+                <h2>Items @isset($category) in {{$category->title}} @endisset</h2>
+                <a href="{{route('admin.item.create')}}" class="btn">Create new item</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -45,6 +46,4 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
 @endsection

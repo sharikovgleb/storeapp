@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     protected $table = 'user';
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'is_active'
     ];
 
     /**
@@ -29,24 +29,47 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles(){
-        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id')->withTimestamps();
     }
 
-    public function basket() {
-        return $this->belongsToMany('App\Item', 'basket_user_item', 'user_id', 'item_id');
+    public function basket()
+    {
+        return $this->belongsToMany('App\Item', 'basket_user_item', 'user_id', 'item_id')->withPivot('quantity');
     }
 
-    public function orders(){
+    public function setBasketItemQuantity($item_id, $quantity)
+    {
+        if($quantity > 0)
+            $this->basket()->updateExistingPivot($item_id, ['quantity' => $quantity]);
+    }
+
+    public function getBasketItemQuantity($item_id)
+    {
+        return $this->basket->where('id', $item_id)->first()->pivot->quantity;
+    }
+
+    public function itemInBasket($item_id){
+        if($this->basket->where('id', $item_id)->first())
+            return true;
+        return false;
+    }
+
+    public function orders()
+    {
         return $this->hasMany('App\Order');
     }
 
-    // $roleName is the string in ('admin' .. 'moderator')
-    public function checkRole($roleName){
-        if (count($this->roles()->where('name', $roleName)->get()) > 0){
+    // $roleName parameter is the string in ('admin' .. 'moderator')
+    public function checkRoles(array $roleName)
+    {
+        if (count($this->roles()->whereIn('name', $roleName)->get()) > 0)
+        {
             return true;
         }
         return false;
     }
+
 
 }

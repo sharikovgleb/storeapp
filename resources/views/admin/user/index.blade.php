@@ -26,6 +26,10 @@
                             <th scope="row">{{$user->id}}</th>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            <td>
+                                {{$user->roles->implode('name', ', ')}}
+                            </td>
+                            <td>{{count($user->orders)}}</td>
                             <td>{{$user->created_at}}</td>
                             <td>{{$user->updated_at}}</td>
                             <td>{{$user->is_active}}</td>
@@ -34,7 +38,7 @@
                                       action="{{route('admin.user.destroy', $user)}}" method="post">
                                     <input type="hidden" name="_method" value="DELETE">
                                     {{csrf_field()}}
-                                    <a  href="{{route('admin.user.edit', $user)}}"><i class="fa fa-edit"></i></a>
+                                    <a class="btn" href="{{route('admin.user.edit', $user)}}"><i class="fa fa-edit"></i></a>
                                     <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
                                 </form>
                             </td>

@@ -18,7 +18,10 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                Главная
+            </a>
+            <a class="navbar-brand" href="{{ url('/admin/item') }}">
+                Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,12 +30,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-
+                    @if(Auth::user())
+                        @if(Auth::user()->checkRoles(['admin']))
+                            <li>
+                                <a class="nav-link" href="{{ route('admin.category.index') }}">Categories</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ route('admin.user.index') }}">Users</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ route('admin.order.index') }}">Orders</a>
+                            </li>
+                        @endif
+                        <a class="nav-link" href="{{ route('admin.item.index') }}">Items</a>
+                        </li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
+
+
+
+                <!-- Authentication Links -->
                     @guest
                     <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                     <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
