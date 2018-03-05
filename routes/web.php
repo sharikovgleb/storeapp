@@ -57,3 +57,5 @@ Route::get('/show/{category}', 'HomeController@showInCategory')->name('home.show
 
 
 
+
+

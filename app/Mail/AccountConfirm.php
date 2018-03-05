@@ -28,7 +28,7 @@ class AccountConfirm extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')
-        ->view('emails.confirm');
+        return $this->from('laravelapp@yandex.ru')
+        ->view('email.confirm');
     }
 }
